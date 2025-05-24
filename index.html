@@ -96,6 +96,24 @@
     ::-webkit-scrollbar-thumb { background: #bbb; border-radius: 8px;}
     .color ::-webkit-scrollbar-thumb { background: #ff53e7;}
   </style>
+  <script>
+  const emojiFavicon = () => {
+    const emoji = "🎨"; // You can change this to something else like "〰️", "🔮", "🎨", etc.
+    const canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    ctx.font = '48px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(emoji, 32, 32);
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.href = canvas.toDataURL();
+    document.head.appendChild(link);
+  };
+  window.addEventListener('DOMContentLoaded', emojiFavicon);
+</script>
 </head>
 <body class="bg-black text-white font-sans tracking-wide transition-colors duration-700 select-none">
 
@@ -103,29 +121,55 @@
 <canvas id="particle-canvas"></canvas>
 
 <!-- Navbar -->
-<nav class="sticky top-0 z-50 w-full px-4 md:px-8 py-3 bg-black/80 backdrop-blur-md border-b border-[#333]/60 flex items-center justify-between">
-  <!-- Mint -->
+<nav class="sticky top-0 z-50 w-full px-4 py-3 bg-black/80 backdrop-blur-md border-b border-[#333]/60 flex items-center justify-between">
+  <!-- Mint Button -->
   <a href="https://opensea.io/collection/squiggle-on-base/overview" target="_blank"
-    class="btn-animated rounded-full px-6 py-2 font-bold shadow-lg text-lg flex items-center gap-2 transition-all duration-200 border-2 border-white hover:scale-105">
-    <i class="fa-solid fa-bolt"></i> Mint Here
+    class="btn-animated rounded-full px-4 sm:px-6 py-2 font-bold shadow-lg text-sm sm:text-lg flex items-center gap-2 transition-all duration-200 border-2 border-white hover:scale-105">
+    <i class="fa-solid fa-bolt"></i> <span class="hidden sm:inline">Mint Here</span>
   </a>
-    <!-- Center logo -->
+
+  <!-- Center Logo -->
   <a href="https://x.com/BasedSquiggles" target="_blank" class="absolute left-1/2 -translate-x-1/2 text-center">
-    <span class="gradient-animated text-2xl md:text-3xl font-bold">Based Squiggles</span>
+    <span class="gradient-animated text-xl sm:text-2xl md:text-3xl font-bold">Based Squiggles</span>
   </a>
-  <!-- Toggle Black/White/Color -->
-  <div class="flex gap-4 items-center">
+
+  <!-- Mobile Menu Button -->
+  <div class="relative sm:hidden">
+    <button id="mobile-menu-toggle" class="text-white text-2xl focus:outline-none">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div id="mobile-menu" class="hidden absolute right-0 mt-2 w-44 bg-black border border-[#333] rounded shadow-lg z-50">
+      <a href="https://x.com/BasedSquiggles" target="_blank" class="block px-4 py-2 text-sm text-white hover:bg-[#111]">X</a>
+      <a href="https://discord.gg/nPDExprjRu" target="_blank" class="block px-4 py-2 text-sm text-white hover:bg-[#111]">Discord</a>
+      <button id="toggleColorMobile"
+        class="block w-full text-left px-4 py-2 text-sm text-white hover:bg-[#111]">
+        <i class="fa-solid fa-adjust mr-2"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Desktop Social Icons + Color Toggle -->
+  <div class="hidden sm:flex gap-4 items-center">
     <button id="toggleColor"
       class="btn-animated rounded-full px-5 py-2 font-bold shadow text-md border-2 border-white hover:scale-105 transition-all duration-200"
       aria-label="Toggle Color Mode">
       <i class="fa-solid fa-adjust"></i>
-      <span class="hidden md:inline ml-2"></span>
     </button>
     <a href="https://x.com/BasedSquiggles" target="_blank" class="text-2xl hover:text-[#888] color:hover:text-[#1ea7ff] transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
     <a href="https://discord.gg/nPDExprjRu" target="_blank" class="text-2xl hover:text-[#888] color:hover:text-[#ff53e7] transition-colors"><i class="fa-brands fa-discord"></i></a>
   </div>
 </nav>
 
+<script>
+  document.getElementById('mobile-menu-toggle').addEventListener('click', function () {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+  });
+
+  document.getElementById('toggleColorMobile').addEventListener('click', function () {
+    document.getElementById('toggleColor').click();
+  });
+</script>
 <!-- Hero Section -->
 <section class="relative flex flex-col items-center justify-center min-h-[90vh] overflow-hidden">
   <!-- Epic animated SVG squiggle background -->
