@@ -386,7 +386,7 @@
   animateSquiggle();
 
   // Iframe random loader (1-122)
-  function getRandomTid() { return Math.floor(Math.random()*122)+1; }
+  function getRandomTid() { return Math.floor(Math.random()*10000)+1; }
   let currentTid = getRandomTid();
   function setSquiggleIframe(tid) {
     const url = `https://arweave.net/mJq5ZGwJyEGM2dX4v0QMWsnCKqA7fk3a5RaUalyzLLA/?tid=${tid}`;
